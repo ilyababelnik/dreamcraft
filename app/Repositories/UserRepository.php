@@ -35,6 +35,7 @@ class UserRepository implements UserRepositoryInterface
             'nickname' => $data->nickname ?? $user->nickname,
             'avatar' => $data->avatar ?? $user->avatar,
             'password' => $data->password ?? $user->password,
+            'email' => $data->email ?? $user->email,
         ]);
 
         return $userRepository->getCurrentUser($data);

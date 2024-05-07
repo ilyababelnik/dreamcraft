@@ -35,7 +35,6 @@
 <script>
     window.onload = function() {
         // Build a system
-        const { SwaggerUIBundle, SwaggerUIStandalonePreset } = require('swagger-ui-dist');
         const ui = SwaggerUIBundle({
             dom_id: '#swagger-ui',
             url: "{!! $urlToDocs !!}",
