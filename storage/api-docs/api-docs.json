@@ -1,0 +1,3406 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DreamCraft API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/auth/registration": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registration",
+                "operationId": "fce3d994da4149576a27585ea6d521ed",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string"
+                                    },
+                                    "last_name": {
+                                        "type": "string"
+                                    },
+                                    "nickname": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "first_name": "User first name",
+                                    "last_name": "User last name",
+                                    "nickname": "User nickname",
+                                    "email": "useraddress@gmail.com",
+                                    "password": "password123",
+                                    "password_confirmation": "password123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "6|6OVYnQz9AqmUmlI1AJRA5zN69WCfi9TRNh5Ud70cd81455a1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request | Duplicate email | Duplicate nickname",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Duplicate email": {
+                                        "summary": "Duplicate email",
+                                        "value": {
+                                            "success": false,
+                                            "message": "User with email already exists"
+                                        }
+                                    },
+                                    "Duplicate nickname": {
+                                        "summary": "Duplicate nickname",
+                                        "value": {
+                                            "success": false,
+                                            "message": "User with this nickname already exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The password field confirmation does not match.",
+                                            "errors": {
+                                                "password": "The password field confirmation does not match."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "3a335d74fc0a1eed501c656b719cc5e2",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email | nickname": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "useraddress@gmail.com",
+                                    "password": "password123"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "token": {
+                                                    "type": "string",
+                                                    "example": "6|6OVYnQz9AqmUmlI1AJRA5zN69WCfi9TRNh5Ud70cd81455a1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request | Non correct password",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Wrong email": {
+                                        "summary": "Wrong email",
+                                        "value": {
+                                            "success": false,
+                                            "message": "User doesn`t exist"
+                                        }
+                                    },
+                                    "Wrong password": {
+                                        "summary": "Wrong password",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Wrong password"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The email field is required.",
+                                            "errors": {
+                                                "email": "The email field is required."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "operationId": "8dc5663920cc4626176f27f2b27257ca",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "You are logged out"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get all categories",
+                "operationId": "ba73d9ad93a5aa2016de8de062fb1090",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search by category's title",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "string": {
+                                "summary": "Search value",
+                                "value": "Happy"
+                            }
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort categories by popularity",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        },
+                        "examples": {
+                            "asc": {
+                                "summary": "ASC",
+                                "value": "asc"
+                            },
+                            "desc": {
+                                "summary": "DESC",
+                                "value": "desc"
+                            }
+                        }
+                    },
+                    {
+                        "name": "mark-sort",
+                        "in": "query",
+                        "description": "Sort categories by avr mark",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        },
+                        "examples": {
+                            "asc": {
+                                "summary": "ASC",
+                                "value": "asc"
+                            },
+                            "desc": {
+                                "summary": "DESC",
+                                "value": "desc"
+                            }
+                        }
+                    },
+                    {
+                        "name": "alphabet",
+                        "in": "query",
+                        "description": "Sort by alphabet",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "examples": {
+                            "Example": {
+                                "summary": "Result",
+                                "value": "true"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Category Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Category description"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Category Image Link"
+                                                    },
+                                                    "marks_avg_mark": {
+                                                        "type": "string",
+                                                        "example": "4.0000 | null"
+                                                    },
+                                                    "popularity": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 27.27272727
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Create category | Only admins",
+                "operationId": "0fda5dfdbd1e85b8e2e5b7e980f0a840",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description_en": {
+                                        "type": "string"
+                                    },
+                                    "description_uk": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "Category title",
+                                    "description_en": "Category description in English",
+                                    "description_uk": "Category description in Ukrainian",
+                                    "image": "Link to the category image"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Category title"
+                                                },
+                                                "description_en": {
+                                                    "type": "string",
+                                                    "example": "Category description in English"
+                                                },
+                                                "description_uk": {
+                                                    "type": "string",
+                                                    "example": "Category description in Ukrainian"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "Link to the category image"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Category with this title already exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title_en field must be a string.",
+                                            "errors": {
+                                                "title_en": "The title_en field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get category by id",
+                "operationId": "bd7c7f25cb1c47fea37c14442f16394f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Method of sort comments in category",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        },
+                        "examples": {
+                            "asc": {
+                                "summary": "ASC",
+                                "value": "asc"
+                            },
+                            "desc": {
+                                "summary": "DESC",
+                                "value": "desc"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Category Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Category description"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "Category Image Link"
+                                                    },
+                                                    "marks_avg_mark": {
+                                                        "type": "string",
+                                                        "example": "4.0000"
+                                                    },
+                                                    "popularity": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 27.27272727
+                                                    },
+                                                    "comments": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "created_at": {
+                                                                    "type": "string",
+                                                                    "format": "date",
+                                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                                },
+                                                                "updated_at": {
+                                                                    "type": "string",
+                                                                    "format": "date",
+                                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                                },
+                                                                "text": {
+                                                                    "type": "string",
+                                                                    "example": "Labore ad rerum eum quo quidem. Doloremque accusamus"
+                                                                },
+                                                                "is_edit": {
+                                                                    "type": "string",
+                                                                    "example": "0"
+                                                                },
+                                                                "category_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "user_id": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Delete category by id | Only admins",
+                "operationId": "8a66e35be7f632ea99ba484c0ab87a9f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete category"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Update category by id | Only admins",
+                "operationId": "a7c958ecd56b84fa3ebdcbdb9282dd22",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the category",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description_en": {
+                                        "type": "string"
+                                    },
+                                    "description_uk": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title": "New Category Title",
+                                    "description_en": "New category description in English",
+                                    "description_uk": "New category description in Ukrainian",
+                                    "image": "New Link to category image"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "New category title"
+                                                },
+                                                "description_en": {
+                                                    "type": "string",
+                                                    "example": "New category description in English"
+                                                },
+                                                "description_uk": {
+                                                    "type": "string",
+                                                    "example": "New category description in Ukrainian"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "New category link to image"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Duplicate title",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category with this title already exist"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title field must be a string.",
+                                            "errors": {
+                                                "title": "The title field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/comments": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Get random comments",
+                "operationId": "72c0f4e68696bbef3567eb3bf1cb5ab7",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "text": {
+                                                        "type": "string",
+                                                        "example": "Placeat vitae deserunt ullam voluptatem sit."
+                                                    },
+                                                    "is_edit": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "category_title": {
+                                                        "type": "string",
+                                                        "example": "aut"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "nickname": {
+                                                        "type": "string",
+                                                        "example": "mellie79"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "https://i.servimg.com/u/f21/18/21/41/30/na1110.png"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Create comment",
+                "operationId": "b51a43a64d8985e7dbdc5dee7e0050d4",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "category_id": 1,
+                                    "text": "Text of comment"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create comment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "text": {
+                                                    "type": "string",
+                                                    "example": "Text of comment"
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title field must be a string.",
+                                            "errors": {
+                                                "title": "The title field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/comments/{id}": {
+            "delete": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Delete comment by id | Only admins",
+                "operationId": "56a7bc88e64718c6d4d3e60230a7e63a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete comment"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Comment not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Update comment by id | Only admins",
+                "operationId": "788c70933605c28d047b53d95c650a78",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the comment",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "text": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "text": "New Comment Text"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "text": {
+                                                    "type": "string",
+                                                    "example": "New Comment Text"
+                                                },
+                                                "is_edit": {
+                                                    "type": "string",
+                                                    "example": "1"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Comment not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Comment not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The text field must be a string.",
+                                            "errors": {
+                                                "text": "The text field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/marks": {
+            "post": {
+                "tags": [
+                    "Mark"
+                ],
+                "summary": "Create mark",
+                "operationId": "1be556f12770f7bfbc5b1d0d54bfd839",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "mark": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "category_id": 1,
+                                    "mark": 5
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create mark",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "mark": {
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The range of evaluation has been breached | Duplicate mark",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Evaluation": {
+                                        "summary": "Evaluation",
+                                        "value": {
+                                            "message": "You cannot give a rating lower than 1"
+                                        }
+                                    },
+                                    "Duplicate": {
+                                        "summary": "Duplicate",
+                                        "value": {
+                                            "message": "You already rated this category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The mark field must be an integer.",
+                                            "errors": {
+                                                "mark": "The mark field must be an integer."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/marks/{id}": {
+            "delete": {
+                "tags": [
+                    "Mark"
+                ],
+                "summary": "Delete mark by id | Only admins",
+                "operationId": "254b3eb0734a641e7ef36385055ef9c7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the mark",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete mark"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mark not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Comment not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Mark"
+                ],
+                "summary": "Update mark by id | Only admins",
+                "operationId": "34d8d1dc05d294d19a2b8a1e23bb3db2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the mark",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "mark": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "mark": 4
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date",
+                                                    "example": "2024-04-27T17:45:19.000000Z"
+                                                },
+                                                "mark": {
+                                                    "type": "integer",
+                                                    "example": 4
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "category_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "The range of evaluation has been breached",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "You cannot give a rating lower than 1"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Mark not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Mark not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The mark field must be an integer.",
+                                            "errors": {
+                                                "mark": "The mark field must be an integer."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/plans": {
+            "get": {
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Get all plans",
+                "operationId": "851c6c6a782e3df9da3f2920e91d594c",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Plan Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Plan description"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": 60
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 12.12
+                                                    },
+                                                    "restrictions": {
+                                                        "type": "string",
+                                                        "example": "Some restrictions | null"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Create plan | Only admins",
+                "operationId": "c5da2b4a523405fa93db54cf085d5726",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title_en": {
+                                        "type": "string"
+                                    },
+                                    "title_uk": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description_en": {
+                                        "type": "string"
+                                    },
+                                    "description_uk": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "restrictions_en": {
+                                        "type": "string"
+                                    },
+                                    "restrictions_uk": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title_en": "Plan title in English",
+                                    "title_uk": "Plan title in Ukrainian",
+                                    "price": 12.12,
+                                    "description_en": "Description plan in English",
+                                    "description_uk": "Plan description in Ukrainian",
+                                    "duration": 60,
+                                    "restrictions_uk": "Restrictions in Ukrainian",
+                                    "restrictions_en": "Restrictions in English"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Create Plan",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "title_en": {
+                                                    "type": "string",
+                                                    "example": "Plan title in English"
+                                                },
+                                                "title_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan title in Ukrainian"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 60
+                                                },
+                                                "price": {
+                                                    "type": "numeric",
+                                                    "example": 12.12
+                                                },
+                                                "description_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan description in Ukrainian"
+                                                },
+                                                "description_en": {
+                                                    "type": "string",
+                                                    "example": "Plan description in English"
+                                                },
+                                                "restrictions_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan restrictions in Ukrainian | null"
+                                                },
+                                                "restrictions_en": {
+                                                    "type": "string",
+                                                    "example": "Plan restrictions in English | null"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation errors",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title field must be a string.",
+                                            "errors": {
+                                                "title": "The title field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/plans/{id}": {
+            "get": {
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Get plan by id",
+                "operationId": "4f625983919eaf0eaf421fa77a27b616",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the plan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Plan Name"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Plan description"
+                                                    },
+                                                    "duration": {
+                                                        "type": "integer",
+                                                        "example": 60
+                                                    },
+                                                    "price": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 12.12
+                                                    },
+                                                    "restrictions": {
+                                                        "type": "string",
+                                                        "example": "Some restrictions | null"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Delete plan by id | Only admins",
+                "operationId": "50bebbac86a9ad216ddd4635a4a19dfc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the plan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Delete plan"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plan not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Plan not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Plan"
+                ],
+                "summary": "Update plan by id | Only admins",
+                "operationId": "4fa901aeff1cea891183c441ca99c8c9",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the plan",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title_en": {
+                                        "type": "string"
+                                    },
+                                    "title_uk": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "description_en": {
+                                        "type": "string"
+                                    },
+                                    "description_uk": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "restrictions_en": {
+                                        "type": "string"
+                                    },
+                                    "restrictions_uk": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "title_en": "Plan title in English",
+                                    "title_uk": "Plan title in Ukrainian",
+                                    "price": 12.12,
+                                    "description_en": "Description plan in English",
+                                    "description_uk": "Plan description in Ukrainian",
+                                    "duration": 60,
+                                    "restrictions_uk": "Restrictions in Ukrainian",
+                                    "restrictions_en": "Restrictions in English"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "created_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "data",
+                                                    "example": "2024-04-27T21:27:04.000000Z"
+                                                },
+                                                "title_en": {
+                                                    "type": "string",
+                                                    "example": "Plan title in English"
+                                                },
+                                                "title_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan title in Ukrainian"
+                                                },
+                                                "duration": {
+                                                    "type": "integer",
+                                                    "example": 60
+                                                },
+                                                "price": {
+                                                    "type": "numeric",
+                                                    "example": 12.12
+                                                },
+                                                "description_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan description in Ukrainian"
+                                                },
+                                                "description_en": {
+                                                    "type": "string",
+                                                    "example": "Plan description in English"
+                                                },
+                                                "restrictions_uk": {
+                                                    "type": "string",
+                                                    "example": "Plan restrictions in Ukrainian | null"
+                                                },
+                                                "restrictions_en": {
+                                                    "type": "string",
+                                                    "example": "Plan restrictions in English | null"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You don't have enough permissions"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Plan not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Plan not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title field must be a string.",
+                                            "errors": {
+                                                "title": "The title field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/me": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get info about me",
+                "operationId": "5c805a4d8b7e4a6c083a8ae945f91952",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "My First Name"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "My Last Name"
+                                                    },
+                                                    "nickname": {
+                                                        "type": "string",
+                                                        "example": "My nickname"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "myaddress@gmail.com"
+                                                    },
+                                                    "email_verified_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "https://2img.net/u/3412/19/22/63/avatars/110530-94.png"
+                                                    },
+                                                    "role": {
+                                                        "type": "string",
+                                                        "example": "user"
+                                                    },
+                                                    "ban": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "reason_ban": {
+                                                        "type": "string",
+                                                        "example": "null"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "string",
+                                                        "example": "null"
+                                                    },
+                                                    "category_list": {
+                                                        "type": "string",
+                                                        "example": "History of subscriptions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "error": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user by id",
+                "operationId": "6d59d0fdd73e451768018c3539d2afaa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "examples": {
+                            "int": {
+                                "summary": "Integer value",
+                                "value": "1"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "My First Name"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "My Last Name"
+                                                    },
+                                                    "nickname": {
+                                                        "type": "string",
+                                                        "example": "My nickname"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "myaddress@gmail.com"
+                                                    },
+                                                    "email_verified_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "https://2img.net/u/3412/19/22/63/avatars/110530-94.png"
+                                                    },
+                                                    "role": {
+                                                        "type": "string",
+                                                        "example": "user"
+                                                    },
+                                                    "ban": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "reason_ban": {
+                                                        "type": "string",
+                                                        "example": "null"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "string",
+                                                        "example": "null"
+                                                    },
+                                                    "category_list": {
+                                                        "type": "string",
+                                                        "example": "History of subscriptions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "error": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/subscribe": {
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Subscribe me to category",
+                "operationId": "dc16d047f37597f311f5239dbb0c9c0b",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "category_id": 1
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "first_name": {
+                                                        "type": "string",
+                                                        "example": "My First Name"
+                                                    },
+                                                    "last_name": {
+                                                        "type": "string",
+                                                        "example": "My Last Name"
+                                                    },
+                                                    "nickname": {
+                                                        "type": "string",
+                                                        "example": "My nickname"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "myaddress@gmail.com"
+                                                    },
+                                                    "email_verified_at": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "2024-04-27T17:45:19.000000Z"
+                                                    },
+                                                    "avatar": {
+                                                        "type": "string",
+                                                        "example": "https://2img.net/u/3412/19/22/63/avatars/110530-94.png"
+                                                    },
+                                                    "role": {
+                                                        "type": "string",
+                                                        "example": "user"
+                                                    },
+                                                    "ban": {
+                                                        "type": "string",
+                                                        "example": "0"
+                                                    },
+                                                    "reason_ban": {
+                                                        "type": "string",
+                                                        "example": "Some text"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "category_list": {
+                                                        "type": "string",
+                                                        "example": "History of subscriptions"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "message": "You already subscribe to another category"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "Unauthenticated."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "success": false,
+                                            "data": "Category not found"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "message": "The title field must be a string.",
+                                            "errors": {
+                                                "title": "The title field must be a string."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server side error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "Result": {
+                                        "summary": "Result",
+                                        "value": {
+                                            "error": "Something wrong. Try later."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "examples": {
+                            "Result": {
+                                "summary": "Result",
+                                "value": {
+                                    "message": "Unauthenticated."
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Plan not found",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "examples": {
+                            "Result": {
+                                "summary": "Result",
+                                "value": {
+                                    "success": false,
+                                    "data": "Plan not found"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "500": {
+                "description": "Server side error",
+                "content": {
+                    "application/json": {
+                        "schema": {},
+                        "examples": {
+                            "Result": {
+                                "summary": "Result",
+                                "value": {
+                                    "success": false,
+                                    "message": "Something wrong. Try later."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
