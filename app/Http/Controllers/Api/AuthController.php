@@ -107,14 +107,14 @@ use Illuminate\Http\Request;
  *             @OA\Schema(
  *
  *                 @OA\Property(
- *                     property="email | nickname",
+ *                     property="login",
  *                     type="string"
  *                 ),
  *                  @OA\Property(
  *                     property="password",
  *                     type="string"
  *                 ),
- *                 example={"email": "useraddress@gmail.com", "password":"password123"}
+ *                 example={"login": "useraddress@gmail.com", "password":"password123"}
  *             )
  *         )
  *     ),
