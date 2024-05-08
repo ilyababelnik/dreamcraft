@@ -41,7 +41,7 @@ class ChangeMeRequest extends FormRequest
                 'nullable',
                 'email',
                 'min:10',
-                'max:20',
+                'max:64',
             ],
             'password' => [
                 'nullable',

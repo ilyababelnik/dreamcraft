@@ -37,7 +37,7 @@ class RegistrationRequest extends FormRequest
                 'required',
                 'email',
                 'min:10',
-                'max:20',
+                'max:64',
             ],
             'password' => [
                 'required',
