@@ -24,13 +24,13 @@ class CategoryUpdateRequest extends FormRequest
                 'nullable',
                 'string',
                 'min: 10',
-                'max: 200',
+                'max: 500',
             ],
             'description_uk' => [
                 'nullable',
                 'string',
                 'min: 10',
-                'max: 200',
+                'max: 500',
             ],
             'image' => [
                 'nullable',

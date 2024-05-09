@@ -24,13 +24,13 @@ class CategoryCreateRequest extends FormRequest
                 'required',
                 'string',
                 'min: 10',
-                'max: 200',
+                'max: 500',
             ],
             'description_uk' => [
                 'required',
                 'string',
                 'min: 10',
-                'max: 200',
+                'max: 500',
             ],
             'image' => [
                 'required',
