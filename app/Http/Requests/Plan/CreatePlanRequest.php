@@ -17,7 +17,7 @@ class CreatePlanRequest extends FormRequest
             'title_en' => [
                 'required',
                 'string',
-                'min:5',
+                'min:3',
                 'max:20',
             ],
             'title_uk' => [

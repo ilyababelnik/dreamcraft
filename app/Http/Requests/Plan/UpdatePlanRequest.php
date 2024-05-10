@@ -17,7 +17,7 @@ class UpdatePlanRequest extends FormRequest
             'title_en' => [
                 'nullable',
                 'string',
-                'min:5',
+                'min:3',
                 'max:20',
             ],
             'title_uk' => [
