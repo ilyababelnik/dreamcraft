@@ -11,7 +11,7 @@ class CommentRepository implements CommentRepositoryInterface
 {
     public function getRandomComments()
     {
-        $count = 100;
+        $count = 3;
         $comments = Models\Comment::with(['user', 'category'])->get();
 
         if ($comments->count() <= $count) {
