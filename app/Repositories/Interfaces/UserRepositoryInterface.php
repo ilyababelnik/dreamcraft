@@ -13,7 +13,7 @@ interface UserRepositoryInterface
 
     public function changeMe(Requests\ChangeMeRequest $data);
 
-    public function mySubscriptionToCategory(Requests\CreateSubscriptionRequest $data);
+    public function myChooseCategory(Requests\CreateSubscriptionRequest $data);
 
     public function mySubscriptionToPlan(Requests\CreateSubscriptionToPlanRequest $data, string $language);
 

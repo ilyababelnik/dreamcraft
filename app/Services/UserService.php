@@ -27,9 +27,9 @@ class UserService
         return $this->userRepository->changeMe($data);
     }
 
-    public function mySubscriptionToCategory(Requests\CreateSubscriptionRequest $data)
+    public function myChooseCategory(Requests\CreateSubscriptionRequest $data)
     {
-        return $this->userRepository->mySubscriptionToCategory($data);
+        return $this->userRepository->myChooseCategory($data);
     }
 
     public function mySubscriptionToPlan(Requests\CreateSubscriptionToPlanRequest $data, string $language)

@@ -18,9 +18,9 @@ Route::prefix('/users')->name('users.')->middleware('auth:api')->controller(Cont
 
     Route::get('/{userId}', 'getUserById')->name('user')->whereNumber('userId');
 
-    Route::patch('/subscribe', 'mySubscriptionToCategory')->name('subscription_category');
+    Route::patch('/choose-category', 'myChooseCategory')->name('choose_category');
 
-    Route::patch('/choose-plan', 'mySubscriptionToPlan')->name('subscription_plan');
+    Route::patch('/subscribe', 'mySubscriptionToPlan')->name('subscription_plan');
 
     Route::patch('/cancel-plan', 'myUnSubscriptionToPlan')->name('unsubscription_plan');
 

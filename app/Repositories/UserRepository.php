@@ -41,7 +41,7 @@ class UserRepository implements UserRepositoryInterface
         return $userRepository->getCurrentUser($data);
     }
 
-    public function mySubscriptionToCategory(Requests\CreateSubscriptionRequest $data)
+    public function myChooseCategory(Requests\CreateSubscriptionRequest $data)
     {
         $userRepository = new UserRepository();
         $user = $userRepository->getCurrentUser($data);

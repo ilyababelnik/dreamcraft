@@ -15,7 +15,7 @@ return [
     'markLowerLimitError' => 'Ви не можете поставити оцінку нижче 1',
     'markHigherLimitError' => 'Ви не можете поставити оцінку більше 5',
     'categoryAlreadyEvaluatedError' => 'Ви вже оцінили цю категорію',
-    'noChoosePlanError' => 'Спочатку Вам потрібно обрати план',
+    'noChoosePlanError' => 'Спочатку Вам потрібно підписатися на план',
     'planAlreadySubscribeError' => 'Ви вже підписані на план користування',
     'noCorrectUserRoleError' => 'У користувача встановлено некоректну роль',
     'permissionsError' => 'У Вас немає відповідного доступу',

@@ -730,10 +730,10 @@ class UserController extends Controller
         }
     }
 
-    public function mySubscriptionToCategory(Requests\CreateSubscriptionRequest $request)
+    public function myChooseCategory(Requests\CreateSubscriptionRequest $request)
     {
         try {
-            $result = $this->userService->mySubscriptionToCategory($request);
+            $result = $this->userService->myChooseCategory($request);
 
             return response()->json([
                 'success' => true,

@@ -15,7 +15,7 @@ return [
     'markLowerLimitError' => 'You cannot give a rating lower than 1',
     'markHigherLimitError' => 'You cannot give a rating higher than 5',
     'categoryAlreadyEvaluatedError' => 'You already rated this category',
-    'noChoosePlanError' => 'Firstly, you need choose plan',
+    'noChoosePlanError' => 'Firstly, you need subscribe to plan',
     'planAlreadySubscribeError' => 'You already subscribe to another plan',
     'noCorrectUserRoleError' => 'Invalid role',
     'permissionsError' => "You don't have enough permissions",
