@@ -15,7 +15,7 @@ class CategorySearchAndSortRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => ['nullable', 'string', 'min: 4', 'max: 20'],
+            'search' => ['nullable', 'string', 'max: 20'],
             'sort' => ['nullable', 'string', Rule::in(['asc', 'desc'])],
             'mark-sort' => ['nullable', 'string', Rule::in(['asc', 'desc'])],
             'alphabet' => ['nullable', 'boolean'],
