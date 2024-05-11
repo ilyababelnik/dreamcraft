@@ -10,7 +10,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 {
     public function getAllCategories(string $search, string $sortByPopularity, string $sortByMark, bool $alphabet, string $language)
     {
-        $totalUsersCount = Models\User::whereNotNull('plan_id')->count();
+        $totalUsersCount = Models\User::whereNotNull('category_id')->count();
 
         $categories = Models\Category::query()
             ->withAvg('marks', 'mark')
