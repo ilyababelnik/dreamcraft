@@ -56,7 +56,8 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function getCategoryById(int $categoryId, string $sort, string $language)
     {
         $totalUsersCount = Models\User::whereNotNull('category_id')->count();
-
+        
+        if ($totalUsersCount < 1) $totalUsersCount = 1;
         $category = Models\Category::with(['comments' => function ($query) use ($sort) {
             $query->orderBy('created_at', $sort);
         }])
