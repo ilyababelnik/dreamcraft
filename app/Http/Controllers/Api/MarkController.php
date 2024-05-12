@@ -279,10 +279,9 @@ class MarkController extends Controller
     {
     }
 
-    public function existMark(Requests\CheckExistingMark $request) 
+    public function existMark(int $categoryId) 
     {
         try {
-            $categoryId = $request->category_id;
             $result = $this->markService->existMark($categoryId);
 
             return response()->json([
