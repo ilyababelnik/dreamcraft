@@ -21,7 +21,7 @@ class CategoryRepository implements CategoryRepositoryInterface
         if ($totalUsersCount > 0) {
             foreach ($categories as $category) {
                 $countOfUsers = $category->users()->count();
-                $category->popularity = $countOfUsers / $totalUsersCount * 100;
+                $category->popularity = round($countOfUsers / $totalUsersCount * 100, 2);
             }
         }
 
@@ -45,7 +45,7 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'title' => $category->title,
                 'description' => $category->{"description_$language"},
                 'image' => $category->image,
-                'marks_avg_mark' => $category->marks_avg_mark,
+                'marks_avg_mark' => round($category->marks_avg_mark, 2),
                 'popularity' => $category->popularity,
             ];
         }
@@ -66,7 +66,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
         if ($category) {
             $countOfUsers = $category->users()->count();
-            $category->popularity = $countOfUsers / $totalUsersCount * 100;
+            $category->popularity = round($countOfUsers / $totalUsersCount * 100, 2);
 
             $category = [
                 'id' => $category->id,
@@ -75,7 +75,7 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'title' => $category->title,
                 'description' => $category->{"description_$language"},
                 'image' => $category->image,
-                'marks_avg_mark' => $category->marks_avg_mark,
+                'marks_avg_mark' => round($category->marks_avg_mark, 2),
                 'popularity' => $category->popularity,
                 'comments' => $category->comments,
             ];

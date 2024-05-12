@@ -55,6 +55,8 @@ Route::prefix('/comments')->name('comments.')->controller(Controllers\CommentCon
 
 Route::prefix('/marks')->name('marks.')->middleware('auth:api')->controller(Controllers\MarkController::class)->group(function () {
 
+    Route::get('/', 'existMark')->name('check_mark');
+    
     Route::post('/', 'createMark')->name('create_mark');
 
     Route::patch('/{markId}', 'updateMark')->middleware('admin-route')->name('update_mark')->whereNumber('markId');

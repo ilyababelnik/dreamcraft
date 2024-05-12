@@ -18,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware
             ->api(append: [
-                // ServerSideErrorsMiddleware::class,
+                ServerSideErrorsMiddleware::class,
                 LanguageDefinitionMiddleware::class,
             ])
             ->alias(['admin-route' => isAdminMiddleware::class]);

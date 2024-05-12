@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Mark as Request;
+use App\Http\Requests\Mark as Requests;
 use App\Services\MarkService;
 
 /**
@@ -279,7 +279,25 @@ class MarkController extends Controller
     {
     }
 
-    public function createMark(Request\MarkCreateRequest $request)
+    public function existMark(Requests\CheckExistingMark $request) 
+    {
+        try {
+            $categoryId = $request->category_id;
+            $result = $this->markService->existMark($categoryId);
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        }
+    }
+
+    public function createMark(Requests\MarkCreateRequest $request)
     {
         try {
             $result = $this->markService->createMark($request);
@@ -296,7 +314,7 @@ class MarkController extends Controller
         }
     }
 
-    public function updateMark(Request\MarkUpdateRequest $request, int $markId)
+    public function updateMark(Requests\MarkUpdateRequest $request, int $markId)
     {
         try {
             $result = $this->markService->updateMark($request, $markId);

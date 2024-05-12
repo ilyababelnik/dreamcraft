@@ -11,6 +11,11 @@ class MarkService
     {
     }
 
+    public function existMark(int $categoryId)
+    {
+        return $this->markRepository->existMark($categoryId);
+    }
+
     public function createMark(Request\MarkCreateRequest $data)
     {
         return $this->markRepository->createMark($data);

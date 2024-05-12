@@ -9,6 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class MarkRepository implements MarkRepositoryInterface
 {
+    public function existMark(int $categoryId)
+    {
+        $currentUser = Auth::user();
+
+        $category = Models\Category::find($categoryId);
+        if (!$category) throw new \Exception(__('errors.notFoundCategoryError'), 404);
+
+        $existMark = Models\Mark::where('user_id', $currentUser->id)
+            ->where('category_id', $categoryId)
+            ->exists();
+
+        if ($existMark) return true;
+        return false;
+    }
+
     public function createMark(Request\MarkCreateRequest $data)
     {
         $currentUser = Auth::user();
