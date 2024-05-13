@@ -66,7 +66,7 @@ Route::prefix('/marks')->name('marks.')->middleware('auth:api')->controller(Cont
 
 Route::prefix('/plans')->name('plans.')->middleware('auth:api')->controller(Controllers\PlanController::class)->group(function () {
 
-    Route::get('/', 'getAllPlans')->name('all_plans');
+    Route::get('/', 'getAllPlans')->withoutMiddleware('auth:api')->name('all_plans');
 
     Route::get('/{planId}', 'getPlanById')->name('plan')->whereNumber('planId');
 
