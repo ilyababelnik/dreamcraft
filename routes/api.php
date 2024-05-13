@@ -16,7 +16,7 @@ Route::prefix('/users')->name('users.')->middleware('auth:api')->controller(Cont
 
     Route::get('/me', 'getCurrentUser')->name('me');
 
-    Route::get('/{userId}', 'getUserById')->name('user')->whereNumber('userId');
+    Route::get('/{userId}', 'getUserById')->withoutMiddleware('auth:api')->name('user')->whereNumber('userId');
 
     Route::patch('/choose-category', 'myChooseCategory')->name('choose_category');
 
