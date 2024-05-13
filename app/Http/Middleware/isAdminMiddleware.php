@@ -17,7 +17,7 @@ class isAdminMiddleware
 
         return response()->json([
             'success' => false,
-            'message' => __('errors.permissionsError')
+            'message' => __('errors.permissionsError'),
         ], 403);
     }
 }

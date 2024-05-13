@@ -95,7 +95,7 @@ class UserRepository implements UserRepositoryInterface
 
         if ($user->plan_id === null) {
 
-            $expirationDate = now()->addMinutes($plan->duration);
+            $expirationDate = now()->addDays($plan->duration);
             $historyPlan = $user->history ?? [];
             $historyPlan[] = [
                 'plan' => [

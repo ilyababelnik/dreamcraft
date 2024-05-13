@@ -22,7 +22,7 @@ class PlanRepository implements PlanRepositoryInterface
                 'restrictions' => $plan->{"restrictions_$language"},
             ];
         });
-    
+
         return $plansData;
     }
 
@@ -39,6 +39,7 @@ class PlanRepository implements PlanRepositoryInterface
                 'description' => $plan->{"description_$language"},
                 'restrictions' => $plan->{"restrictions_$language"},
             ];
+
             return $planData;
         } else {
             throw new \Exception(__('errors.notFoundPlanError'), 404);

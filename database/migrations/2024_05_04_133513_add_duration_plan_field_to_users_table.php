@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->timestamp('duration_plan')
+                ->index()
                 ->nullable()
                 ->after('start_plan')
                 ->comment('Duration of choose plan for user');

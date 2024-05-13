@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id()
+                ->index()
                 ->comment('Id of the category');
 
             $table->timestamps();

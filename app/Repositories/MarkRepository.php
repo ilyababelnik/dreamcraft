@@ -14,13 +14,18 @@ class MarkRepository implements MarkRepositoryInterface
         $currentUser = Auth::user();
 
         $category = Models\Category::find($categoryId);
-        if (!$category) throw new \Exception(__('errors.notFoundCategoryError'), 404);
+        if (! $category) {
+            throw new \Exception(__('errors.notFoundCategoryError'), 404);
+        }
 
         $existMark = Models\Mark::where('user_id', $currentUser->id)
             ->where('category_id', $categoryId)
             ->exists();
 
-        if ($existMark) return true;
+        if ($existMark) {
+            return true;
+        }
+
         return false;
     }
 

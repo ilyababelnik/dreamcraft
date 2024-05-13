@@ -23,4 +23,4 @@ Schedule::call(function () {
             'category_id' => null,
         ]);
     });
-})->everyMinute();
+})->daily();

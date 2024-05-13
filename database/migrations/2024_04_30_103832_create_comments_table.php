@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
 
             $table->id()
+                ->index()
                 ->comment('Id of the comment');
 
             $table->timestamps();

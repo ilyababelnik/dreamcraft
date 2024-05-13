@@ -9,10 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('marks', function (Blueprint $table) {
-            $table->id();
+            $table->id()
+                ->comment('Id of the mark');
+
             $table->timestamps();
 
-            $table->integer('mark')->nullable(false)->index();
+            $table->integer('mark')
+                ->nullable(false)
+                ->index()
+                ->comment('Value of mark');
 
             $table->foreignId('user_id')
                 ->index()
